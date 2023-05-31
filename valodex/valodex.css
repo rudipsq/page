@@ -3,7 +3,7 @@ body{
     color: #fff;
     
     margin: 0px;
-    padding: 50px 0 0 0; /* size of menu bar */
+    padding: 52px 0 0 0; /* change always to size of menu bar */
     font-family: Arial, Helvetica, sans-serif;
 
     cursor: default;
@@ -132,6 +132,10 @@ div#menubar{
     left: 0;
     width: 100%;
     z-index: 9999;
+
+    outline: #4b4b4b;
+    outline-style: solid;
+    outline-width: 2px;
 }
 
 table#menutable{
