@@ -24,8 +24,6 @@ function getApiSkins(){
         console.log('Error:', error);
     });
 }
-// icon: "https://media.valorant-api.com/weaponskins/" + uuid + "/displayicon.png"
-
 
 
 function getApiThemes(){
@@ -88,13 +86,13 @@ function addThemesToWebsite(){
 
 
             let jsonString = localStorage.getItem('valodex_collected');
-            // if(jsonString == null) console.log("ok supi supi, looks like u r new")
+            // if(jsonString == null) console.log("ok supi supi, looks like u r new here")
             if(jsonString.includes(skin.uuid+'":true')){
                 button.textContent = 'remove';
-                button.style.backgroundColor = "#66d2ef";
+                button.classList.add("remove_collection_button");
             } else{
                 button.textContent = 'add';
-                button.style.backgroundColor = "#00d600";
+                button.classList.add("add_collection_button");
             }
             button.addEventListener('click', function() {
                 triggerCollected(skin.uuid);
@@ -149,43 +147,97 @@ function triggerCollected(uuid){
 
     if(jsonObject == null){
         jsonObject = {[uuid]:true};
-        clickedButton.style.backgroundColor = '#66d2ef';
+        clickedButton.classList.remove("add_collection_button");
+        clickedButton.classList.add("remove_collection_button");
     }
     else if(jsonObject[uuid] != true){
         jsonObject[uuid] = true;
-        clickedButton.style.backgroundColor = '#66d2ef';
+        clickedButton.classList.remove("add_collection_button");
+        clickedButton.classList.add("remove_collection_button");
         clickedButton.textContent = 'remove';
         }
     else{
         jsonObject[uuid] = false;
-        clickedButton.style.backgroundColor = '#00d600';
+        clickedButton.classList.remove("remove_collection_button");
+        clickedButton.classList.add("add_collection_button");
         clickedButton.textContent = 'add';
     }
 
     jsonString = JSON.stringify(jsonObject);
     localStorage.setItem('valodex_collected', jsonString);
+
+    const counter = document.getElementById("counter");
+    counter.textContent = "collected: " + updateCollectedCounter()
 }
 
-// when button is pressed and item is added to the list make button other color to remove it
-// add counter to count all collected guns
-// maybe adjust size of the images
+function updateCollectedCounter(){
+    let jsonString = localStorage.getItem('valodex_collected');
+    let jsonObject = JSON.parse(jsonString);
+    let count = 0;
+
+    for (const key in jsonObject) {
+        if (jsonObject.hasOwnProperty(key) && jsonObject[key] === true) {
+          count++;
+        }
+    }
+    console.warn(count)
+    return count;
+}
 
 startPage()
 
 async function startPage(){
+    let jsonString_viewMode = localStorage.getItem('valodex_viewMode');
+    if(jsonString_viewMode == null) localStorage.setItem('valodex_viewMode', '{"mode": "list"}')
+    if(jsonString_viewMode == '{"mode": "grid"}'){
+        let image_viewMode = document.getElementById("viewmode_icon");
+        changeViewMode(image_viewMode);
+    }
+
+
     let jsonString = localStorage.getItem('valodex_collected');
-    if(jsonString == null) localStorage.setItem('valodex_collected', '{"1": "1"}')
+    if(jsonString == null) localStorage.setItem('valodex_collected', '{"vdex_version": "1"}')
+
     try {
         await getApiThemes();
         try {
             await getApiSkins();
             setTimeout(function() {
                 addThemesToWebsite();
-              }, 500);
+
+                const counter = document.getElementById("counter");
+                counter.textContent = "collected: " + updateCollectedCounter()
+              }, 1000);                  //your internet might me to slow and this website isn't optimized
         } catch (error) {
             console.error('Error:', error);
         }
     } catch (error) {
         console.error('Error:', error);
     }
+}
+
+
+
+// add counter to count all collected guns
+// maybe adjust size of the images, scale when not enough space (phone)
+// larger image when clicked on image
+// small animation if button pressed
+// menu bar on top: change view mode from list to table, show completed collections, show total collected skins,
+//                  option to create a backup and to upload a backup
+
+
+function changeViewMode(image){
+    let container = document.getElementById("themes_container")
+
+    if (image.src.endsWith('images/icons/menu_grid.png')){
+        image.src = 'images/icons/menu_list.png';
+        localStorage.setItem('valodex_viewMode', '{"mode": "list"}')
+
+        container.classList.remove("themes_container_grid")
+      } else{
+        image.src = 'images/icons/menu_grid.png';
+        localStorage.setItem('valodex_viewMode', '{"mode": "grid"}')
+
+        container.classList.add("themes_container_grid")
+      }
 }

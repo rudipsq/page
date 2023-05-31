@@ -1,11 +1,12 @@
 body{
     background-color: #1b1b1b;
-    color: #ffffff;
+    color: #fff;
     
     margin: 0px;
-    padding: 0px;
+    padding: 50px 0 0 0; /* size of menu bar */
+    font-family: Arial, Helvetica, sans-serif;
 
-    font-family: sans-serif;
+    cursor: default;
 }
 
 h3{
@@ -13,6 +14,9 @@ h3{
     margin: 0;
 
     background-color: #1b1b1b;
+    text-shadow: 0 0 5px #d6d6d6;
+
+    cursor: default;
 }
 
 table{
@@ -30,11 +34,13 @@ tr{
     padding: 0px 0px 0px 20px;
     height: 45px;
     width: 100px;
+    min-width: 90px;
 }
 
 .image_td{
     height: 45px;
     width: calc(100%-240px);
+    min-width: 250px;
 
     display: flex;
     justify-content: center;
@@ -53,15 +59,33 @@ div{
 
 button{
     width: 90px;
-    height: 35px;
+    height: 30px;
 
     float:  right;
-    outline-style: solid;
-    outline-color: #747474;
-    outline-width: 2px;
-    
-    border-style: none;
-    border-radius: 5px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+
+    color: white;
+}
+
+.add_collection_button{
+    background-image: linear-gradient(to bottom right,rgb(0, 180, 0), rgb(25, 218, 25));
+}
+.add_collection_button:hover {
+    box-shadow: 0 0 10px rgb(23, 133, 23);
+}
+
+.remove_collection_button{
+    background-image: linear-gradient(to bottom left, rgb(189, 2, 2), red);
+}
+.remove_collection_button:hover {
+    box-shadow: 0 0 10px rgb(253, 11, 11);
+}
+
+.themes_container_grid{
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #themes_container img{
@@ -73,6 +97,8 @@ button{
 }
 
 .themes{
+    flex: auto;
+
     background-color: #2b2b2b;
     outline-style: solid;
     outline-color: #4b4b4b;
@@ -80,4 +106,48 @@ button{
     border-radius: 10px;
 
     margin: 10px;
+    overflow: auto;
 }
+
+div#menubar{
+    background-color: #2b2b2b;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+table#menutable{
+    height: 100%;
+}
+
+table#menutable tr td.menu_left{
+    float: left;
+}
+
+table#menutable tr td.menu_right{
+    float: right;
+}
+
+#viewmode_icon{
+    width: 25px;
+    height: 25px;
+    margin: 20%;
+
+    border-radius: 3px;
+    outline: black;
+    outline-style: solid;
+    outline-width: 2px;
+    cursor: pointer;
+}
+
+#viewmode_icon:hover{
+    box-shadow: 0 0 5px #000000;
+}
+
+p{
+    float: left;
+}
+
