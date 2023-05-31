@@ -7,7 +7,7 @@ function getApiSkins(){
     .then(responseData => {
         const dataArray = responseData.data;
         const filteredData = dataArray.map(item => {
-        // Filter out specific subcategories or properties
+        // Filter out specific properties
         return {
             uuid: item.uuid,
             theme: item.themeUuid,
@@ -81,7 +81,7 @@ function addThemesToWebsite(){
             if(weaponName == "Bucky"){
                 image.style.height = "28px";
             }
-            if(weaponName == "Ghost" ||weaponName == "Guardian"){
+            if(weaponName == "Ghost" || weaponName == "Guardian"){
                 image.style.height = "36px";
             }
             if(weaponName == "Shorty"){
@@ -234,8 +234,7 @@ async function startPage(){
 
 
 
-// add counter to count all collected guns
-// maybe adjust size of the images, scale when not enough space (phone)
+// add total number of skins to counter
 // larger image when clicked on image
 // small animation if button pressed
 // menu bar on top: change view mode from list to table, show completed collections, show total collected skins,
@@ -250,10 +249,28 @@ function changeViewMode(image){
         localStorage.setItem('valodex_viewMode', '{"mode": "list"}')
 
         container.classList.remove("themes_container_grid")
-      } else{
+    } else{
         image.src = 'images/icons/menu_grid.png';
         localStorage.setItem('valodex_viewMode', '{"mode": "grid"}')
 
         container.classList.add("themes_container_grid")
-      }
+    }
 }
+
+function copyBackUpKey() {
+    // Create a temporary textarea element
+    const textarea = document.createElement('textarea');
+    textarea.value = localStorage.getItem('valodex_collected');
+  
+    // Append the textarea to the document body
+    document.body.appendChild(textarea);
+  
+    // Select the text in the textarea
+    textarea.select();
+  
+    // Copy the selected text to the clipboard
+    document.execCommand('copy');
+  
+    // Remove the temporary textarea from the document
+    document.body.removeChild(textarea);
+  }

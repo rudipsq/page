@@ -10,24 +10,35 @@ body{
 }
 
 h3{
-    padding: 10px;
-    margin: 0;
-
-    background-color: #1b1b1b;
     text-shadow: 0 0 5px #d6d6d6;
-
+    
     cursor: default;
 }
 
+#themes_container h3{
+    padding: 10px;
+    margin: 0;
+
+    position:sticky;
+    left: 0;
+    right: 0;
+
+    background-color: #1b1b1b;
+}
+
 table{
-    padding: 5px;
     width: 100%;
 
     overflow: hidden;
+    border-collapse: collapse;
 }
 
-tr{
+/* tr{
     min-width: 50px;
+} */
+
+.themes tr:hover{
+    background-color: #222222;
 }
 
 .name_td{
@@ -136,9 +147,21 @@ table#menutable tr td.menu_right{
 }
 
 #viewmode_icon{
-    width: 25px;
-    height: 25px;
-    margin: 20%;
+    width: 30px;
+    height: 30px;
+    margin: 9px;
+
+    border-radius: 3px;
+    outline: black;
+    outline-style: solid;
+    outline-width: 2px;
+    cursor: pointer;
+}
+
+#home_icon{
+    width: 30px;
+    height: 30px;
+    margin-top: 9px;
 
     border-radius: 3px;
     outline: black;
@@ -151,7 +174,11 @@ table#menutable tr td.menu_right{
     box-shadow: 0 0 5px #000000;
 }
 
-p{
+#counter{
+    margin-right: 9px;
+}
+
+#counter h3{
     float: left;
 }
 
