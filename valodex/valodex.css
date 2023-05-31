@@ -31,7 +31,7 @@ tr{
 }
 
 .name_td{
-    padding: 0px 0px 0px 20px;
+    padding: 0px 0px 0px 10px;
     height: 45px;
     width: 100px;
     min-width: 90px;
@@ -48,7 +48,7 @@ tr{
 }
 
 .collect_button_td{
-    padding: 0px 20px 0px 0px;
+    padding: 0px 10px 0px 0px;
     height: 45px;
     width: 100px;
 }
@@ -83,13 +83,17 @@ button{
     box-shadow: 0 0 10px rgb(253, 11, 11);
 }
 
+#themes_container {
+    margin-left: 10px;
+}
+
 .themes_container_grid{
     display: flex;
     flex-wrap: wrap;
 }
 
-#themes_container img{
-    height: 45px;
+#themes_container .themes table tr td img{
+    height: 42px;
     width: auto;
 
     margin: 0px;
@@ -105,7 +109,7 @@ button{
     outline-width: 2px;
     border-radius: 10px;
 
-    margin: 10px;
+    margin: 10px 10px 0 0;
     overflow: auto;
 }
 

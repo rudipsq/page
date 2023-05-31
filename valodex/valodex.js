@@ -72,12 +72,29 @@ function addThemesToWebsite(){
             const tr = document.createElement("tr");
             const td_name = document.createElement("td");
             td_name.classList.add("name_td");
-            td_name.textContent = weaponNameFromString(skin.name);
+            const weaponName = weaponNameFromString(skin.name);
+            td_name.textContent = weaponName;
         
             const td_image = document.createElement("td");
             td_image.classList.add("image_td");
             const image = document.createElement("img");
+            if(weaponName == "Bucky"){
+                image.style.height = "28px";
+            }
+            if(weaponName == "Ghost" ||weaponName == "Guardian"){
+                image.style.height = "36px";
+            }
+            if(weaponName == "Shorty"){
+                image.style.height = "32px";
+            }
+            if(weaponName == "Phantom"){
+                image.style.height = "38px";
+            }
+            if(weaponName == "Marshal"){
+                image.style.height = "36px";
+            }
             image.src = "https://media.valorant-api.com/weaponskins/" + skin.uuid + "/displayicon.png";
+            //image.src = "https://media.valorant-api.com/weaponskinchromas/" + skin.uuid + "/fullrender.png";
             td_image.appendChild(image);
 
             const td_button = document.createElement("td");
@@ -180,7 +197,6 @@ function updateCollectedCounter(){
           count++;
         }
     }
-    console.warn(count)
     return count;
 }
 
