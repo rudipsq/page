@@ -8,12 +8,9 @@ function getApiSkins(){
         const dataArray = responseData.data;
         const filteredData = dataArray.map(item => {
         // Filter out specific properties
-
-
-
-        if(item.displayIcon == null){
-
+        if(item.hasOwnProperty("chromas")){
             const jsonArraychromas = item.chromas;
+
             for (let image of jsonArraychromas) {
                 return {
                     uuid: item.uuid,
@@ -110,21 +107,7 @@ function addThemesToWebsite(){
                 image.style.height = "36px";
             }
 
-            //check if image exists:
-            // const url = "https://media.valorant-api.com/weaponskins/" + skin.uuid + "/displayicon.png";
-            // const img = new Image();
-            // img.src = url;
-            // img.onload = function() {
-            //     image.src = url;
-            // };
-            // img.onerror = function() {
-            //     image.src = "images/icons/skins_noGun.png";
-            // };
-            if(skin.hasOwnProperty('image')){
-                image.src = skin.image;
-            } else{
-                image.src = "https://media.valorant-api.com/weaponskins/" + skin.uuid + "/displayicon.png";
-            }
+            image.src = skin.image;
             td_image.appendChild(image);
 
             const td_button = document.createElement("td");
@@ -152,7 +135,6 @@ function addThemesToWebsite(){
 
 
         div.appendChild(table)
-        // Append the div element to the container
         if(currentUuidSkins.length > 0 && item.name != "Random" && item.name != "Standard") container.appendChild(div);
     }
 }
