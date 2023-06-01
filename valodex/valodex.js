@@ -9,15 +9,30 @@ function getApiSkins(){
         const filteredData = dataArray.map(item => {
         // Filter out specific properties
 
-        return {
-            uuid: item.uuid,
-            theme: item.themeUuid,
-            name: item.displayName
-        };
+
+
+        if(item.displayIcon == null){
+
+            const jsonArraychromas = item.chromas;
+            for (let image of jsonArraychromas) {
+                return {
+                    uuid: item.uuid,
+                    theme: item.themeUuid,
+                    name: item.displayName,
+                    image: image.fullRender
+                };
+            }
+        } else{
+            return {
+                uuid: item.uuid,
+                theme: item.themeUuid,
+                name: item.displayName,
+                image: item.displayIcon
+            };
+        }
     });
     
     const jsonString = JSON.stringify(filteredData);
-    //console.log(jsonString); // Display the JSON string in the console
 
     skinArray = JSON.parse(jsonString);
     })
@@ -96,15 +111,20 @@ function addThemesToWebsite(){
             }
 
             //check if image exists:
-            const url = "https://media.valorant-api.com/weaponskins/" + skin.uuid + "/displayicon.png";
-            const img = new Image();
-            img.src = url;
-            img.onload = function() {
-                image.src = url;
-            };
-            img.onerror = function() {
-                image.src = "images/icons/skins_noGun.png";
-            };
+            // const url = "https://media.valorant-api.com/weaponskins/" + skin.uuid + "/displayicon.png";
+            // const img = new Image();
+            // img.src = url;
+            // img.onload = function() {
+            //     image.src = url;
+            // };
+            // img.onerror = function() {
+            //     image.src = "images/icons/skins_noGun.png";
+            // };
+            if(skin.hasOwnProperty('image')){
+                image.src = skin.image;
+            } else{
+                image.src = "https://media.valorant-api.com/weaponskins/" + skin.uuid + "/displayicon.png";
+            }
             td_image.appendChild(image);
 
             const td_button = document.createElement("td");
