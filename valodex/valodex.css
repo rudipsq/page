@@ -156,11 +156,12 @@ table#menutable tr td.menu_right{
     margin: 9px;
 
     border-radius: 3px;
-    outline: black;
-    outline-style: solid;
-    outline-width: 2px;
     cursor: pointer;
 }
+#viewmode_icon:hover{
+    background-color: #4b4b4b;
+}
+
 
 #home_icon{
     width: 30px;
@@ -168,14 +169,10 @@ table#menutable tr td.menu_right{
     margin-top: 9px;
 
     border-radius: 3px;
-    outline: black;
-    outline-style: solid;
-    outline-width: 2px;
     cursor: pointer;
 }
-
-#viewmode_icon:hover{
-    box-shadow: 0 0 5px #000000;
+#home_icon:hover{
+    background-color: #4b4b4b;
 }
 
 #counter{

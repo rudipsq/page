@@ -288,9 +288,6 @@ async function startPage(){
     }
 }
 
-// add total number of skins to counter
-// larger image when clicked on image
-// small animation if button pressed
 // menu bar on top: change view mode from list to table, show completed collections, show total collected skins,
 //                  option to create a backup and to upload a backup
 
