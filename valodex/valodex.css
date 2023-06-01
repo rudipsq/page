@@ -10,7 +10,7 @@ body{
 }
 
 h3{
-    text-shadow: 0 0 5px #d6d6d6;
+    text-shadow: 0 0 5px #bebebe;
     
     cursor: default;
 }
@@ -153,7 +153,8 @@ table#menutable tr td.menu_right{
 #viewmode_icon{
     width: 30px;
     height: 30px;
-    margin: 9px;
+    margin-top: 9px;
+    margin-left: 9px;
 
     border-radius: 3px;
     cursor: pointer;
@@ -162,16 +163,29 @@ table#menutable tr td.menu_right{
     background-color: #4b4b4b;
 }
 
-
-#home_icon{
+#key_icon{
     width: 30px;
     height: 30px;
     margin-top: 9px;
+    margin-left: 9px;
 
     border-radius: 3px;
     cursor: pointer;
 }
-#home_icon:hover{
+#key_icon:hover{
+    background-color: #4b4b4b;
+}
+
+#valorant_icon{
+    width: 30px;
+    height: 30px;
+    margin-top: 9px;
+    margin-left: 9px;
+
+    border-radius: 3px;
+    cursor: pointer;
+}
+#valorant_icon:hover{
     background-color: #4b4b4b;
 }
 
