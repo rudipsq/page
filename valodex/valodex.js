@@ -293,7 +293,7 @@ async function startPage(){
 
 function imageZoom(){
     const images = document.querySelectorAll('.image_skin');
-    const overlay = document.getElementById('overlay');
+    const overlay = document.getElementById('image_overlay');
 
     images.forEach((image) => {
         image.addEventListener('click', (event) => {
@@ -314,3 +314,31 @@ function imageZoom(){
         });
     }
 }
+
+function openDiv() {
+    const div = document.getElementById("backup_overlay");
+    div.style.display = "block";
+}
+  
+function closeDiv() {
+    const div = document.getElementById("backup_overlay");
+    if (event.target != div) {
+        return; // Do nothing when innerDiv is clicked
+    }
+    div.style.display = "none";
+}
+
+
+function uploadBackUpKey() {
+    var inputElement = document.getElementById("textInput");
+    var inputValue = inputElement.value;
+    
+    if(inputValue.includes('{"vdex_version":')){
+        localStorage.setItem('valodex_collected', inputValue);
+        location.reload();
+    } else{
+        console.error("BackUp-Key is invalid");
+        inputElement.value = "BackUp-Key is invalid";
+    }
+}
+  
