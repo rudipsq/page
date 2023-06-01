@@ -333,7 +333,7 @@ function uploadBackUpKey() {
     var inputElement = document.getElementById("textInput");
     var inputValue = inputElement.value;
     
-    if(inputValue.includes('{"vdex_version":')){
+    if(inputValue.includes('{"vdex_version":'||'{"1":"1",')){
         localStorage.setItem('valodex_collected', inputValue);
         location.reload();
     } else{
