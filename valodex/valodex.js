@@ -300,6 +300,8 @@ function imageZoom(){
             const clickedImageSrc = event.target.getAttribute('src');
             const overlayImage = document.createElement('img');
             overlayImage.setAttribute('src', clickedImageSrc);
+            // overlay.style.width = "auto";
+            // overlayImage.height = "200px";
             if (overlay) {
                 overlay.appendChild(overlayImage);
                 overlay.style.display = 'flex';
