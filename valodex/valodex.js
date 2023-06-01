@@ -8,6 +8,7 @@ function getApiSkins(){
         const dataArray = responseData.data;
         const filteredData = dataArray.map(item => {
         // Filter out specific properties
+
         return {
             uuid: item.uuid,
             theme: item.themeUuid,
@@ -93,17 +94,24 @@ function addThemesToWebsite(){
             if(weaponName == "Marshal"){
                 image.style.height = "36px";
             }
-            image.src = "https://media.valorant-api.com/weaponskins/" + skin.uuid + "/displayicon.png";
-            //image.src = "https://media.valorant-api.com/weaponskinchromas/" + skin.uuid + "/fullrender.png";
+
+            //check if image exists:
+            const url = "https://media.valorant-api.com/weaponskins/" + skin.uuid + "/displayicon.png";
+            const img = new Image();
+            img.src = url;
+            img.onload = function() {
+                image.src = url;
+            };
+            img.onerror = function() {
+                image.src = "images/icons/skins_noGun.png";
+            };
             td_image.appendChild(image);
 
             const td_button = document.createElement("td");
             td_button.classList.add("collect_button_td");
             const button = document.createElement("button");
 
-
             let jsonString = localStorage.getItem('valodex_collected');
-            // if(jsonString == null) console.log("ok supi supi, looks like u r new here")
             if(jsonString.includes(skin.uuid+'":true')){
                 button.textContent = 'remove';
                 button.classList.add("remove_collection_button");
@@ -200,46 +208,6 @@ function updateCollectedCounter(){
     return count;
 }
 
-startPage()
-
-async function startPage(){
-    let jsonString_viewMode = localStorage.getItem('valodex_viewMode');
-    if(jsonString_viewMode == null) localStorage.setItem('valodex_viewMode', '{"mode": "list"}')
-    if(jsonString_viewMode == '{"mode": "grid"}'){
-        let image_viewMode = document.getElementById("viewmode_icon");
-        changeViewMode(image_viewMode);
-    }
-
-
-    let jsonString = localStorage.getItem('valodex_collected');
-    if(jsonString == null) localStorage.setItem('valodex_collected', '{"vdex_version": "1"}')
-
-    try {
-        await getApiThemes();
-        try {
-            await getApiSkins();
-            setTimeout(function() {
-                addThemesToWebsite();
-
-                const counter = document.getElementById("counter");
-                counter.textContent = "collected: " + updateCollectedCounter()
-              }, 1000);                  //your internet might me to slow and this website isn't optimized
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-
-
-// add total number of skins to counter
-// larger image when clicked on image
-// small animation if button pressed
-// menu bar on top: change view mode from list to table, show completed collections, show total collected skins,
-//                  option to create a backup and to upload a backup
-
 
 function changeViewMode(image){
     let container = document.getElementById("themes_container")
@@ -273,4 +241,44 @@ function copyBackUpKey() {
   
     // Remove the temporary textarea from the document
     document.body.removeChild(textarea);
-  }
+}
+
+
+
+startPage()
+
+async function startPage(){
+    let jsonString_viewMode = localStorage.getItem('valodex_viewMode');
+    if(jsonString_viewMode == null) localStorage.setItem('valodex_viewMode', '{"mode": "list"}')
+    if(jsonString_viewMode == '{"mode": "grid"}'){
+        let image_viewMode = document.getElementById("viewmode_icon");
+        changeViewMode(image_viewMode);
+    }
+
+
+    let jsonString = localStorage.getItem('valodex_collected');
+    if(jsonString == null) localStorage.setItem('valodex_collected', '{"vdex_version": "1"}')
+
+    try {
+        await getApiThemes();
+        try {
+            await getApiSkins();
+            setTimeout(function() {
+                addThemesToWebsite();
+
+                const counter = document.getElementById("counter");
+                counter.textContent = "collected: " + updateCollectedCounter()
+              }, 1000);                  //your internet might me to slow and this website isn't optimized
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// add total number of skins to counter
+// larger image when clicked on image
+// small animation if button pressed
+// menu bar on top: change view mode from list to table, show completed collections, show total collected skins,
+//                  option to create a backup and to upload a backup
