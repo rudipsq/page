@@ -107,7 +107,14 @@ function addThemesToWebsite(){
                 image.style.height = "36px";
             }
 
-            image.src = skin.image;
+            const img = new Image();
+            img.src = skin.image;
+            img.onload = function() {
+                image.src = skin.image;
+            };
+            img.onerror = function() {
+                image.src = "images/icons/skins_noGun.png";
+            };
             td_image.appendChild(image);
 
             const td_button = document.createElement("td");
