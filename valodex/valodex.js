@@ -68,7 +68,7 @@ function addThemesToWebsite(){
 
 
         // for all skins with theme_uuid = uuid of current theme
-        let currentUuidSkins = searchArrayByKey(skinArray, "theme", item.theme)
+        let currentUuidSkins = searchArrayByKey(skinArray, "theme", item.theme);
         for (let skin of currentUuidSkins){
             const tr = document.createElement("tr");
             const td_name = document.createElement("td");
@@ -167,9 +167,6 @@ function triggerCollected(uuid){
     let jsonObject = JSON.parse(jsonString);
     const clickedButton = event.target;
 
-    console.log(jsonString)
-    console.log(jsonObject)
-
     if(jsonObject == null){
         jsonObject = {[uuid]:true};
         clickedButton.classList.remove("add_collection_button");
@@ -192,7 +189,7 @@ function triggerCollected(uuid){
     localStorage.setItem('valodex_collected', jsonString);
 
     const counter = document.getElementById("counter");
-    counter.textContent = "collected: " + updateCollectedCounter()
+    counter.textContent = updateCollectedCounter() + "/" + (skinArray.length-2*18);
 }
 
 function updateCollectedCounter(){
@@ -267,7 +264,7 @@ async function startPage(){
                 addThemesToWebsite();
 
                 const counter = document.getElementById("counter");
-                counter.textContent = "collected: " + updateCollectedCounter()
+                counter.textContent = updateCollectedCounter() + "/" + (skinArray.length-2*18);
               }, 1000);                  //your internet might me to slow and this website isn't optimized
         } catch (error) {
             console.error('Error:', error);
