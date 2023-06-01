@@ -91,6 +91,7 @@ function addThemesToWebsite(){
             const td_image = document.createElement("td");
             td_image.classList.add("image_td");
             const image = document.createElement("img");
+            image.classList.add("image_skin");
             if(weaponName == "Bucky"){
                 image.style.height = "28px";
             }
@@ -277,6 +278,7 @@ async function startPage(){
 
                 const counter = document.getElementById("counter");
                 counter.textContent = updateCollectedCounter() + "/" + (skinArray.length - 2*18);
+                imageZoom();
               }, 1000);                  //your internet might me to slow and this website isn't optimized
         } catch (error) {
             console.error('Error:', error);
@@ -291,3 +293,27 @@ async function startPage(){
 // small animation if button pressed
 // menu bar on top: change view mode from list to table, show completed collections, show total collected skins,
 //                  option to create a backup and to upload a backup
+
+function imageZoom(){
+    const images = document.querySelectorAll('.image_skin');
+    const overlay = document.getElementById('overlay');
+
+    images.forEach((image) => {
+        image.addEventListener('click', (event) => {
+            const clickedImageSrc = event.target.getAttribute('src');
+            const overlayImage = document.createElement('img');
+            overlayImage.setAttribute('src', clickedImageSrc);
+            if (overlay) {
+                overlay.appendChild(overlayImage);
+                overlay.style.display = 'flex';
+            }
+        });
+    });
+
+    if (overlay) {
+        overlay.addEventListener('click', () => {
+            overlay.innerHTML = '';
+            overlay.style.display = 'none';
+        });
+    }
+}
