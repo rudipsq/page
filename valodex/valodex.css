@@ -179,10 +179,8 @@ table#menutable tr td.menu_right{
 }
 
 #counter{
-    margin-right: 9px;
-}
-
-#counter h3{
+    margin: 15px 9px 0 0;
     float: left;
+
 }
 
