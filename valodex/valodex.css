@@ -248,7 +248,7 @@ table#menutable tr td.menu_right{
     outline-width: 2px;
     border-radius: 10px;
 
-    box-shadow: 0 0 80px #505050;
+    box-shadow: 0 0 80px rgb(83, 83, 83);
 }
 
 #backup_overlay #backup_menu h3{
@@ -289,7 +289,7 @@ table#menutable tr td.menu_right{
     height: 28px;
     width: 175px;
 
-    background-color: #4b4b4b;
+    background-color: #1b1b1b;
     color: #fff;
 
     border-radius: 3px;
