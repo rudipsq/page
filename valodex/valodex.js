@@ -169,6 +169,7 @@ function weaponNameFromString(string){
     else if (string.includes("Operator")) return "Operator"
     else if (string.includes("Ares")) return "Ares"
     else if (string.includes("Odin")) return "Odin"
+    else if (string.includes("Winterwunderland Candy Cane")) return "Winterwunder-land Candy Cane"
     else return string
 }
 
