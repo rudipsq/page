@@ -252,6 +252,19 @@ function copyBackUpKey() {
   
     // Remove the temporary textarea from the document
     document.body.removeChild(textarea);
+
+    //Add info
+    var td_element = document.getElementById("td_copyBackUpKey");
+    var text = document.createElement('p')
+    var textNode = document.createTextNode("copied!");
+    text.appendChild(textNode);
+
+    text.style.marginTop = "15px";
+    text.style.marginBottom = "0";
+    td_element.appendChild(text);
+    setTimeout(function() {
+        td_element.removeChild(text);
+    }, 700);
 }
 
 function imageZoom(){
