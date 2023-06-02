@@ -336,11 +336,14 @@ function merge(jsonString1, jsonString2) {
 let sortType = 0;
 
 function sortThemes(){
+    var image = document.getElementById("sort_icon");
     if(sortType == 0){
-        sortDivsAlphabetically()
+        sortDivsAlphabetically();
+        image.src = "images/icons/menu_a_z.png";
         sortType = 1;
     } else{
-        sortDivsReverseAlphabetically()
+        sortDivsReverseAlphabetically();
+        image.src = "images/icons/menu_z_a.png";
         sortType = 0;
     }
 }
