@@ -253,44 +253,6 @@ function copyBackUpKey() {
     document.body.removeChild(textarea);
 }
 
-
-
-startPage()
-
-async function startPage(){
-    let jsonString_viewMode = localStorage.getItem('valodex_viewMode');
-    if(jsonString_viewMode == null) localStorage.setItem('valodex_viewMode', '{"mode": "list"}')
-    if(jsonString_viewMode == '{"mode": "grid"}'){
-        let image_viewMode = document.getElementById("viewmode_icon");
-        changeViewMode(image_viewMode);
-    }
-
-
-    let jsonString = localStorage.getItem('valodex_collected');
-    if(jsonString == null) localStorage.setItem('valodex_collected', '{"vdex_version": "1"}')
-
-    try {
-        await getApiThemes();
-        try {
-            await getApiSkins();
-            setTimeout(function() {
-                addThemesToWebsite();
-
-                const counter = document.getElementById("counter");
-                counter.textContent = updateCollectedCounter() + "/" + (skinArray.length - 2*18);
-                imageZoom();
-              }, 1000);                  //your internet might me to slow and this website isn't optimized
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-// menu bar on top: change view mode from list to table, show completed collections, show total collected skins,
-//                  option to create a backup and to upload a backup
-
 function imageZoom(){
     const images = document.querySelectorAll('.image_skin');
     const overlay = document.getElementById('image_overlay');
@@ -343,4 +305,123 @@ function uploadBackUpKey() {
         inputElement.value = "BackUp-Key is invalid";
     }
 }
+
+//just testing here
+function merge(jsonString1, jsonString2) {
+    // Parse the JSON strings into objects
+    var obj1 = JSON.parse(jsonString1);
+    var obj2 = JSON.parse(jsonString2);
   
+    // Combine the keys from both objects into a set
+    var keysSet = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);
+  
+    // Filter the keys based on true value
+    var filteredKeys = [...keysSet].filter(key => obj1[key] === true || obj2[key] === true);
+  
+    // Create the merged object with unique true values
+    var mergedObj = {};
+    filteredKeys.forEach(key => {
+      mergedObj[key] = true;
+    });
+  
+    // Add the "1":"1" key-value pair at the beginning
+    mergedObj = { "1": "1", ...mergedObj };
+  
+    // Convert the merged object back to a JSON string
+    var outputJsonString = JSON.stringify(mergedObj);
+  
+    return outputJsonString;
+}
+
+let sortType = 0;
+
+function sortThemes(){
+    if(sortType == 0){
+        sortDivsAlphabetically()
+        sortType = 1;
+    } else{
+        sortDivsReverseAlphabetically()
+        sortType = 0;
+    }
+}
+
+function sortDivsAlphabetically() {
+    // Step 1: Get the div elements
+    var divs = Array.from(document.querySelectorAll('.themes'));
+  
+    // Step 2: Sort the array of div elements
+    divs.sort(function (a, b) {
+      var textA = a.querySelector('h3').textContent.toLowerCase();
+      var textB = b.querySelector('h3').textContent.toLowerCase();
+      if (textA < textB) {
+        return -1;
+      }
+      if (textA > textB) {
+        return 1;
+      }
+      return 0;
+    });
+  
+    // Step 3: Append the sorted div elements back to the parent container
+    var parentContainer = document.querySelector('#themes_container');
+    divs.forEach(function (div) {
+      parentContainer.appendChild(div);
+    });
+}
+
+function sortDivsReverseAlphabetically() {
+  var divs = Array.from(document.querySelectorAll('.themes'));
+
+  divs.sort(function (a, b) {
+    var textA = a.querySelector('h3').textContent.toLowerCase();
+    var textB = b.querySelector('h3').textContent.toLowerCase();
+    if (textA < textB) {
+      return 1; // Changed to return 1 for reverse order
+    }
+    if (textA > textB) {
+      return -1; // Changed to return -1 for reverse order
+    }
+    return 0;
+  });
+
+  var parentContainer = document.querySelector('#themes_container');
+  divs.forEach(function (div) {
+    parentContainer.appendChild(div);
+  });
+}
+
+
+
+async function startPage(){
+    let jsonString_viewMode = localStorage.getItem('valodex_viewMode');
+    if(jsonString_viewMode == null) localStorage.setItem('valodex_viewMode', '{"mode": "list"}')
+    if(jsonString_viewMode == '{"mode": "grid"}'){
+        let image_viewMode = document.getElementById("viewmode_icon");
+        changeViewMode(image_viewMode);
+    }
+
+
+    let jsonString = localStorage.getItem('valodex_collected');
+    if(jsonString == null) localStorage.setItem('valodex_collected', '{"vdex_version": "1"}')
+
+    try {
+        await getApiThemes();
+        try {
+            await getApiSkins();
+            setTimeout(function() {
+                addThemesToWebsite();
+
+                const counter = document.getElementById("counter");
+                counter.textContent = updateCollectedCounter() + "/" + (skinArray.length - 2*18);
+                imageZoom();
+                sortThemes();
+              }, 1000);                  //your internet might me to slow and this website isn't optimized
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+startPage()

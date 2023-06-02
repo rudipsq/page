@@ -176,6 +176,19 @@ table#menutable tr td.menu_right{
     background-color: #4b4b4b;
 }
 
+#sort_icon{
+    width: 30px;
+    height: 30px;
+    margin-top: 9px;
+    margin-left: 9px;
+
+    border-radius: 3px;
+    cursor: pointer;
+}
+#sort_icon:hover{
+    background-color: #4b4b4b;
+}
+
 #valorant_icon{
     width: 30px;
     height: 30px;
