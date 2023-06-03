@@ -73,39 +73,54 @@ function addThemesToWebsite(){
         div.classList.add("themes")
 
         const heading = document.createElement("h3");
-        heading.textContent = item.name;
-        div.appendChild(heading);
 
         const table = document.createElement("table");
-
 
         // for all skins with theme_uuid = uuid of current theme
         let currentUuidSkins = searchArrayByKey(skinArray, "theme", item.theme)
         for (let skin of currentUuidSkins){
+
+            //heading
+            if((skin.name).includes(item.name)){
+                heading.textContent = item.name;
+            } else if(skin.name == "Prism III Axe"){
+                heading.textContent = "Prism2";
+            } else if(!skin.name.includes(weaponNameFromString(skin.name))){
+                //heading.textContent = skin.name + " (" + item.name + ")";
+            } else{
+                var regex = new RegExp(weaponNameFromString(skin.name), "gi");
+                heading.textContent = (skin.name).replace(regex, "") + " (" + item.name + ")";
+                //heading.textContent = skin.name + " (" + item.name + ")";
+            }
+
             const tr = document.createElement("tr");
+
+            //name
             const td_name = document.createElement("td");
             td_name.classList.add("name_td");
-            const weaponName = weaponNameFromString(skin.name);
+
+            var weaponName = skin.name;
+            if(weaponNameFromString(skin.name) != null){
+                weaponName = weaponNameFromString(skin.name);
+            }
             td_name.textContent = weaponName;
         
+            //image
             const td_image = document.createElement("td");
             td_image.classList.add("image_td");
             const image = document.createElement("img");
             image.classList.add("image_skin");
-            if(weaponName == "Bucky"){
-                image.style.height = "28px";
+            if(weaponName == "Phantom"){
+                image.style.height = "38px";
             }
-            if(weaponName == "Ghost" || weaponName == "Guardian"){
+            if(weaponName == "Ghost" || weaponName == "Guardian" || weaponName == "Marshal"){
                 image.style.height = "36px";
             }
             if(weaponName == "Shorty"){
                 image.style.height = "32px";
             }
-            if(weaponName == "Phantom"){
-                image.style.height = "38px";
-            }
-            if(weaponName == "Marshal"){
-                image.style.height = "36px";
+            if(weaponName == "Bucky"){
+                image.style.height = "28px";
             }
 
             const img = new Image();
@@ -118,6 +133,7 @@ function addThemesToWebsite(){
             };
             td_image.appendChild(image);
 
+            //button
             const td_button = document.createElement("td");
             td_button.classList.add("collect_button_td");
             const button = document.createElement("button");
@@ -141,7 +157,7 @@ function addThemesToWebsite(){
             table.appendChild(tr)
         }
 
-
+        div.appendChild(heading);
         div.appendChild(table)
         if(currentUuidSkins.length > 0 && item.name != "Random" && item.name != "Standard") container.appendChild(div);
     }
@@ -169,8 +185,8 @@ function weaponNameFromString(string){
     else if (string.includes("Operator")) return "Operator"
     else if (string.includes("Ares")) return "Ares"
     else if (string.includes("Odin")) return "Odin"
-    else if (string.includes("Winterwunderland Candy Cane")) return "Winterwunder-land Candy Cane"
-    else return string
+    else if (string.includes("Winterwunderland Candy Cane")) return "Winter-wunderland Candy Cane"
+    //else return string
 }
 
 function triggerCollected(uuid){
