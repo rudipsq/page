@@ -295,7 +295,11 @@ function imageZoom(){
 
 function openDiv() {
     const div = document.getElementById("backup_overlay");
-    div.style.display = "block";
+    if(div.style.display == "block"){
+        div.style.display = "none";
+    } else{
+        div.style.display = "block";
+    }
 }
   
 function closeDiv() {
@@ -304,6 +308,9 @@ function closeDiv() {
         return; // Do nothing when innerDiv is clicked
     }
     div.style.display = "none";
+    var inputElement = document.getElementById("textInput");
+    inputElement.placeholder = "BackUp-Key";
+    inputElement.value = "";
 }
 
 
@@ -316,7 +323,8 @@ function uploadBackUpKey() {
         location.reload();
     } else{
         console.error("BackUp-Key is invalid");
-        inputElement.value = "BackUp-Key is invalid";
+        inputElement.placeholder = "BackUp-Key is invalid";
+        inputElement.value = "";
     }
 }
 
@@ -408,6 +416,24 @@ function sortDivsReverseAlphabetically() {
 }
 
 
+var filterInput = document.getElementById('filterInput');
+var themesContainer = document.getElementById('themes_container');
+var themes = themesContainer.getElementsByClassName('themes');
+
+filterInput.addEventListener('input', function() {
+  var filterValue = this.value.toLowerCase();
+
+  for (var i = 0; i < themes.length; i++) {
+    var theme = themes[i];
+    var themeText = theme.innerText.toLowerCase();
+
+    if (themeText.includes(filterValue)) {
+      theme.style.display = 'block';
+    } else {
+      theme.style.display = 'none';
+    }
+  }
+});
 
 async function startPage(){
     let jsonString_viewMode = localStorage.getItem('valodex_viewMode');
@@ -442,3 +468,20 @@ async function startPage(){
 }
 
 startPage()
+
+
+var counterElement = document.getElementById('counter');
+
+counterElement.addEventListener('mouseover', function() {
+//   var valueParts = originalValue.split('/');
+//   var currentValue = parseInt(valueParts[0]);
+//   var maxValue = parseInt(valueParts[1]);
+//   var percentage = Math.floor((currentValue / maxValue) * 100);
+
+//   counterElement.textContent = percentage + '/' + maxValue;
+    counterElement.textContent = parseFloat(((updateCollectedCounter() / (skinArray.length - 2*18)) * 100).toFixed(2)) + "%"
+});
+
+counterElement.addEventListener('mouseout', function() {
+    counter.textContent = updateCollectedCounter() + "/" + (skinArray.length - 2*18);
+});

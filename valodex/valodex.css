@@ -203,12 +203,10 @@ table#menutable tr td.menu_right{
 }
 
 #counter{
-    margin: 15px 9px 0 0;
+    margin: 14px 9px 0 0;
     float: left;
 }
 
-
-/* test */
 #imageContainer {
     display: flex;
     flex-wrap: wrap;
@@ -300,6 +298,21 @@ table#menutable tr td.menu_right{
 
 #textInput{
     margin-top: 5px;
+    padding-left: 10px;
+    height: 28px;
+    width: 165px;
+
+    background-color: #1b1b1b;
+    color: #fff;
+
+    border-radius: 3px;
+    outline: none;
+    border: none;
+}
+
+#filterInput{
+    margin-left: 9px;
+    margin-top: 10px;
     padding-left: 10px;
     height: 28px;
     width: 165px;
