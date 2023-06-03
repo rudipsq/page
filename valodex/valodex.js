@@ -423,11 +423,17 @@ var themes = themesContainer.getElementsByClassName('themes');
 filterInput.addEventListener('input', function() {
   var filterValue = this.value.toLowerCase();
 
+  var filterWords = filterValue.split(' ');
+
   for (var i = 0; i < themes.length; i++) {
     var theme = themes[i];
     var themeText = theme.innerText.toLowerCase();
 
-    if (themeText.includes(filterValue)) {
+    var hasAllWords = filterWords.every(function(word) {
+      return themeText.includes(word);
+    });
+
+    if (hasAllWords) {
       theme.style.display = 'block';
     } else {
       theme.style.display = 'none';
@@ -473,12 +479,6 @@ startPage()
 var counterElement = document.getElementById('counter');
 
 counterElement.addEventListener('mouseover', function() {
-//   var valueParts = originalValue.split('/');
-//   var currentValue = parseInt(valueParts[0]);
-//   var maxValue = parseInt(valueParts[1]);
-//   var percentage = Math.floor((currentValue / maxValue) * 100);
-
-//   counterElement.textContent = percentage + '/' + maxValue;
     counterElement.textContent = parseFloat(((updateCollectedCounter() / (skinArray.length - 2*18)) * 100).toFixed(2)) + "%"
 });
 
